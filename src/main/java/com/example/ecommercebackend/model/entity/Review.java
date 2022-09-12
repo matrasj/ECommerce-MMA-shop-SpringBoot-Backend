@@ -19,6 +19,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "review")
 public class Review {
     @Id
     @GeneratedValue(strategy = IDENTITY)

@@ -15,6 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "confirmation_token")
 public class ConfirmationToken {
     @Id
     @GeneratedValue(strategy = IDENTITY)

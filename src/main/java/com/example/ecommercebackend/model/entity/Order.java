@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,16 +20,25 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "product_category")
-public class ProductCategory {
+@Table(name = "order")
+public class Order {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "order_tracking_number")
+    private String orderTrackingNumber;
 
-    @OneToMany(mappedBy = "productCategory", cascade = ALL)
-    private List<Product> products = new ArrayList<>();
+    @ManyToOne(cascade = {
+            DETACH,
+            MERGE,
+            PERSIST,
+            REFRESH
+    })
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private Customer customer;
+
+//    @OneToMany(mappedBy = "order", cascade = ALL)
+//    private Set<OrderItem> orderItems = new HashSet<>();
 }
