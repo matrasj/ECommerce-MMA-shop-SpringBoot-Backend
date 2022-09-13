@@ -25,6 +25,9 @@ public class Address {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "city")
+    private String city;
+
     @ManyToOne(cascade = {
             DETACH,
             MERGE,
@@ -46,8 +49,9 @@ public class Address {
     @Column(name = "zip_code")
     private String zipCode;
 
-    @OneToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer;
+    @OneToOne(mappedBy = "address")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
+
 
 }

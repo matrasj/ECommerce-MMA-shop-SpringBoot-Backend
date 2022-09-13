@@ -38,10 +38,7 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(mappedBy = "customer", cascade = ALL)
-    private Address address;
-
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = ALL)
     private Set<Order> orders = new HashSet<>();
 
 
