@@ -11,6 +11,7 @@ import com.example.ecommercebackend.model.payload.login.LoginResponse;
 import com.example.ecommercebackend.model.payload.refreshtoken.RefreshTokenRequest;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadRequest;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadResponse;
+import com.example.ecommercebackend.model.payload.user.UserPayloadResponse;
 import com.example.ecommercebackend.repository.ConfirmationTokenRepository;
 import com.example.ecommercebackend.repository.UserRepository;
 import com.example.ecommercebackend.security.JwtProvider;
@@ -112,5 +113,15 @@ public class AuthService {
     public boolean isLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    }
+
+    public UserPayloadResponse getCurrentUserData() {
+        User currentUser = getCurrentUser();
+        return UserPayloadResponse.builder()
+                .id(currentUser.getId())
+                .firstName(currentUser.getFirstName())
+                .lastName(currentUser.getLastName())
+                .email(currentUser.getEmail())
+                .build();
     }
 }

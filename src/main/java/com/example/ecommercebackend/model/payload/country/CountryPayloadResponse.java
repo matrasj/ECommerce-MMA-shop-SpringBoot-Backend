@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CountryPayloadResponse {
     private Long id;
+    private String code;
     private String name;
 }

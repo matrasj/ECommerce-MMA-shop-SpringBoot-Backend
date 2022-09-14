@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.*;
-
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -29,6 +28,7 @@ public class Order {
 
     @Column(name = "created_at")
     @CreationTimestamp
+
     private Date createdAt;
 
     @Column(name = "total_quantity")

@@ -72,6 +72,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/purchase")
                 .permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/purchase/payment-intent")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

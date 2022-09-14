@@ -1,4 +1,4 @@
-package com.example.ecommercebackend.model.payload.registration;
+package com.example.ecommercebackend.model.payload.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class RegistrationPayloadRequest {
+public class UserPayloadResponse {
+    private Long id;
     private String firstName;
     private String lastName;
-    private String username;
-    private String password;
     private String email;
 }

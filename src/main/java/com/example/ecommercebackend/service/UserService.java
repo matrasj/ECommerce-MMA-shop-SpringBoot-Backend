@@ -6,6 +6,7 @@ import com.example.ecommercebackend.model.entity.ConfirmationToken;
 import com.example.ecommercebackend.model.entity.User;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadRequest;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadResponse;
+import com.example.ecommercebackend.model.payload.user.UserPayloadResponse;
 import com.example.ecommercebackend.repository.ConfirmationTokenRepository;
 import com.example.ecommercebackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,8 @@ public class UserService {
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .enabled(DISABLED_ACCOUNT)
                 .tokens(new HashSet<>())
@@ -59,6 +62,4 @@ public class UserService {
 
         return new RegistrationPayloadResponse(confirmationTokenInstance.getToken());
     }
-
-
 }

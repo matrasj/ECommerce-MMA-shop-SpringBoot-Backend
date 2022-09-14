@@ -7,6 +7,7 @@ public class CountryPayloadResponseMapper {
     public static CountryPayloadResponse mapToCountryPayloadResponse(Country country) {
         return CountryPayloadResponse.builder()
                 .id(country.getId())
+                .code(country.getCode())
                 .name(country.getName())
                 .build();
     }

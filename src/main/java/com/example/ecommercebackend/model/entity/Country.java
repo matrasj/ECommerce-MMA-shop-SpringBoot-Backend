@@ -27,6 +27,9 @@ public class Country {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "code")
+    private String code;
+
     @OneToMany(mappedBy = "country", cascade = ALL)
     private Set<Address> addresses = new HashSet<>();
 

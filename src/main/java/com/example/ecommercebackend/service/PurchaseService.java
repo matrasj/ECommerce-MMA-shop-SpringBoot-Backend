@@ -7,19 +7,24 @@ import com.example.ecommercebackend.model.entity.Address;
 import com.example.ecommercebackend.model.entity.Customer;
 import com.example.ecommercebackend.model.entity.Order;
 import com.example.ecommercebackend.model.entity.OrderItem;
+import com.example.ecommercebackend.model.payload.payment.PaymentInfo;
 import com.example.ecommercebackend.model.payload.purchase.*;
 import com.example.ecommercebackend.repository.*;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import javax.annotation.PostConstruct;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+
 public class PurchaseService {
     private static final String COUNTRY_NOT_FOUND_MESSAGE = "Not found country %s";
     private static final String STATE_NOT_FOUND_MESSAGE = "Not found state %s";
@@ -31,6 +36,30 @@ public class PurchaseService {
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
 
+    @Autowired
+    public PurchaseService(CustomerRepository customerRepository,
+                           AddressRepository addressRepository,
+                           CountryRepository countryRepository,
+                           StateRepository stateRepository,
+                           ProductRepository productRepository,
+                           OrderRepository orderRepository,
+                           @Value("${stripe.key.secret}") String secretKey) {
+        this.customerRepository = customerRepository;
+        this.addressRepository = addressRepository;
+        this.countryRepository = countryRepository;
+        this.stateRepository = stateRepository;
+        this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
+        Stripe.apiKey = secretKey;
+    }
+
+
+
+    @Value("${stripe.key.secret}")
+    private String secretKey;
+
+
+
     @Transactional
     public PurchasePayloadResponse makePurchase(PurchasePayloadRequest purchasePayloadRequest) {
         CustomerPayload customerPayload = purchasePayloadRequest.getCustomerPayload();
@@ -39,7 +68,8 @@ public class PurchaseService {
         OrderPayload orderPayload = purchasePayloadRequest.getOrderPayload();
 
         //Building customer
-        Customer customer = buildCustomerByPayload(customerPayload);
+        Optional<Customer> optionalCustomer = customerRepository.findByEmail(customerPayload.getEmail());
+        Customer customer = optionalCustomer.orElseGet(() -> buildCustomerByPayload(customerPayload));
 
         //Building address
         Address address = buildAddressByPayload(addressPayload);
@@ -113,5 +143,18 @@ public class PurchaseService {
 
     private String generateOrderTrackingNumber() {
         return UUID.randomUUID().toString();
+    }
+
+    public String createPaymentIntent(PaymentInfo paymentInfo) throws StripeException {
+        List<String> paymentMethods = new ArrayList<>();
+        paymentMethods.add("card");
+
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("amount", paymentInfo.getAmount());
+        params.put("currency", paymentInfo.getCurrency());
+        params.put("payment_method_types", paymentMethods);
+
+        return PaymentIntent.create(params).toJson();
     }
 }
