@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findByProductCategoryId(@Param("productCategoryId") Long productCategoryId, Pageable pageable);
     Page<Product> findByNameContaining(@Param("keyword") String keyword, Pageable pageable);
     Page<Product> findByBrandName(@Param("brandName") String brandName, Pageable pageable);
+    List<Product> findByNameContaining(@Param("keyword") String keyword);
 }

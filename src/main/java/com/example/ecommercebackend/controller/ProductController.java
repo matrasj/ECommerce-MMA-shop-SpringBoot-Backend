@@ -75,4 +75,12 @@ public class ProductController {
                 .body(productService.findProductById(productId));
     }
 
+    @GetMapping("/limit/{limitNumber}")
+    public ResponseEntity<List<ProductPayloadResponse>> findProductsWithLimit(@PathVariable Long limitNumber,
+                                                                              @RequestParam String keyword) {
+        return ResponseEntity.status(OK)
+                .body(productService.findProductsWithLimit(limitNumber, keyword));
+    }
+
+
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -117,4 +118,17 @@ public class ProductService {
                 productsByBrandName.getTotalElements()
         );
     }
+
+    public List<ProductPayloadResponse> findProductsWithLimit(Long limitNumber, String keyword) {
+        List<Product> products = productRepository.findByNameContaining(keyword)
+                .stream()
+                .limit(limitNumber)
+                .toList();
+
+        return products
+                .stream()
+                .map(ProductPayloadResponseMapper::mapToProductPayloadResponse)
+                .toList();
+    }
+
 }
