@@ -11,5 +11,5 @@ Technologies I used:
 - Stripe elements
 
 #######################################
-Screenshots are available here --> 
+Screenshots are available here --> https://github.com/pozerinhooo/Reddit-clone-frontend
 #######################################
