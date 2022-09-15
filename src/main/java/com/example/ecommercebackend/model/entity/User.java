@@ -45,6 +45,9 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private Date createdAt;

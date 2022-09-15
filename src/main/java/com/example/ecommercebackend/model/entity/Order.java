@@ -37,6 +37,9 @@ public class Order {
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
+    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(256) DEFAULT 'Waiting'")
+    private String status;
+
     @OneToMany(mappedBy = "order", cascade = ALL)
     private Set<OrderItem> orderItems = new HashSet<>();
 

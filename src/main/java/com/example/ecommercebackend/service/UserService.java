@@ -49,6 +49,7 @@ public class UserService {
                 .lastName(request.getLastName())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .enabled(DISABLED_ACCOUNT)
+                .role("USER")
                 .tokens(new HashSet<>())
                 .build();
 

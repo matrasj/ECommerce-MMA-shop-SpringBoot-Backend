@@ -51,5 +51,17 @@ public class ReviewService {
                 .map(ReviewPayloadResponseMapper::mapToReviewPayloadResponse)
                 .collect(Collectors.toList());
     }
+
+    public List<ReviewPayloadResponse> findReviewsForCurrentUser() {
+        User currentUser = authService.getCurrentUser();
+
+        List<Review> findByAuthorUsername
+                = reviewRepository.findAllByAuthorUsername(currentUser.getUsername());
+
+        return findByAuthorUsername
+                .stream()
+                .map(ReviewPayloadResponseMapper::mapToReviewPayloadResponse)
+                .toList();
+    }
 }
 

@@ -31,4 +31,12 @@ public class ReviewController {
         return ResponseEntity.status(OK)
                 .body(reviewService.findReviewsByProductId(productId));
     }
+
+    @GetMapping("/current")
+    public ResponseEntity<List<ReviewPayloadResponse>> getReviewsForCurrentUser() {
+        return ResponseEntity.status(OK)
+                .body(reviewService.findReviewsForCurrentUser());
+    }
+
+
 }

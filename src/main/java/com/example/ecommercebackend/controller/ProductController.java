@@ -61,6 +61,14 @@ public class ProductController {
                 .body(productService.getProductsWithPaginationByNameContainingKeyword(keyword, pageSize, pageNumber));
     }
 
+    @GetMapping("/pagination/findByBrandName")
+    public ResponseEntity<Page<ProductPayloadResponse>> findProductsByBrandName(@RequestParam String brandName,
+                                                                                @RequestParam int pageSize,
+                                                                                @RequestParam int pageNumber) {
+        return ResponseEntity.status(OK)
+                .body(productService.getProductsWithPaginationByBrandName(brandName, pageSize, pageNumber));
+    }
+
     @GetMapping("/{productId}")
     public ResponseEntity<ProductPayloadResponse> findProductById(@PathVariable Long productId) {
         return ResponseEntity.status(OK)

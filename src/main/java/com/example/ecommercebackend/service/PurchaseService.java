@@ -138,6 +138,7 @@ public class PurchaseService {
                 .orderTrackingNumber(generateOrderTrackingNumber())
                 .totalQuantity(orderPayload.getTotalQuantity())
                 .totalPrice(orderPayload.getTotalPrice())
+                .status("Waiting")
                 .build();
     }
 

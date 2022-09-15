@@ -7,6 +7,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +61,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/**")
                 .permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/products")
+                .permitAll()
                 .antMatchers(HttpMethod.GET,"/api/v1/products/**")
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product-categories")
@@ -74,6 +77,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/purchase/payment-intent")
                 .permitAll()
+
                 .anyRequest()
                 .authenticated()
                 .and()

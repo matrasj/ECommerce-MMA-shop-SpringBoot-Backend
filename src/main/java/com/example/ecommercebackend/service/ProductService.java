@@ -103,4 +103,18 @@ public class ProductService {
 
         return ProductPayloadResponseMapper.mapToProductPayloadResponse(product);
     }
+
+    public Page<ProductPayloadResponse> getProductsWithPaginationByBrandName(String brandName, int pageSize, int pageNumber) {
+        Page<Product> productsByBrandName
+                = productRepository.findByBrandName(brandName, PageRequest.of(pageNumber, pageSize));
+
+        return new PageImpl<>(
+                productsByBrandName
+                        .stream()
+                        .map(ProductPayloadResponseMapper::mapToProductPayloadResponse)
+                        .toList(),
+                PageRequest.of(pageNumber, pageSize),
+                productsByBrandName.getTotalElements()
+        );
+    }
 }

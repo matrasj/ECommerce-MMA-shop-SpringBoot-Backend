@@ -10,7 +10,15 @@ public class ReviewPayloadResponseMapper {
                 .content(review.getContent())
                 .createdAt(review.getCreatedAt())
                 .lastUpdated(review.getLastUpdated())
+                .authorFirstName(review.getAuthor().getFirstName())
+                .authorLastName(review.getAuthor().getLastName())
                 .authorUsername(review.getAuthor().getUsername())
+                .productId(review.getProduct().getId())
+                .productName(review.getProduct().getName())
+                .productDescription(review.getProduct().getDescription())
+                .productImagePath(review.getProduct().getImagePath())
+                .productPrice(review.getProduct().getPrice())
+                .productCategoryName(review.getProduct().getProductCategory().getName())
                 .build();
     }
 }
