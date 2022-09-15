@@ -8,6 +8,7 @@ Technologies I used:
 - Spring Data JPA
 - Pagination
 - Spring Security
+- Email account confirmation (using fake mail server MAILDEV: https://github.com/maildev/maildev)
 - Stripe elements
 
 #######################################
