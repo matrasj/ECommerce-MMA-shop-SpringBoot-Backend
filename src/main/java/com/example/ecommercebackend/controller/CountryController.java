@@ -1,17 +1,16 @@
 package com.example.ecommercebackend.controller;
 
+import com.example.ecommercebackend.model.payload.country.CountryPayloadRequest;
 import com.example.ecommercebackend.model.payload.country.CountryPayloadResponse;
 import com.example.ecommercebackend.service.CountryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -25,5 +24,11 @@ public class CountryController {
     public ResponseEntity<List<CountryPayloadResponse>> getAllShippingCountries() {
         return ResponseEntity.status(OK)
                 .body(countryService.findAllCountries());
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createCountry(@RequestBody CountryPayloadRequest countryPayloadRequest) {
+        return ResponseEntity.status(CREATED)
+                .body(countryService.addCountryToShippingCountries(countryPayloadRequest));
     }
 }
