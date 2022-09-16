@@ -7,6 +7,7 @@ Technologies I used:
 - Hibernate
 - Spring Data JPA
 - Pagination
+- MySQL (hosted on docker)
 - Spring Security
 - Email account confirmation (using fake mail server MAILDEV: https://github.com/maildev/maildev)
 - Stripe elements
