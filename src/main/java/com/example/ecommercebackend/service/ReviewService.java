@@ -61,7 +61,7 @@ public class ReviewService {
         return findByAuthorUsername
                 .stream()
                 .map(ReviewPayloadResponseMapper::mapToReviewPayloadResponse)
-                .toList();
+                .collect(Collectors.toList());
     }
 }
 

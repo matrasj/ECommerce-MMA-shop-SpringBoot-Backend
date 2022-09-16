@@ -18,6 +18,6 @@ public class CountryService {
         return countryRepository.findAll()
                 .stream()
                 .map(CountryPayloadResponseMapper::mapToCountryPayloadResponse)
-                .toList();
+                .collect(Collectors.toList());
     }
 }

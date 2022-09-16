@@ -29,7 +29,7 @@ public class OrderService {
                 ordersByCustomerEmail
                         .stream()
                         .map(OrderPayloadResponseMapper::mapToOrderPayloadResponse)
-                        .toList(),
+                        .collect(Collectors.toList()),
                 PageRequest.of(pageNumber, pageSize),
                 ordersByCustomerEmail.getTotalElements()
         );

@@ -113,7 +113,7 @@ public class ProductService {
                 productsByBrandName
                         .stream()
                         .map(ProductPayloadResponseMapper::mapToProductPayloadResponse)
-                        .toList(),
+                        .collect(Collectors.toList()),
                 PageRequest.of(pageNumber, pageSize),
                 productsByBrandName.getTotalElements()
         );
@@ -123,12 +123,12 @@ public class ProductService {
         List<Product> products = productRepository.findByNameContaining(keyword)
                 .stream()
                 .limit(limitNumber)
-                .toList();
+                .collect(Collectors.toList());
 
         return products
                 .stream()
                 .map(ProductPayloadResponseMapper::mapToProductPayloadResponse)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 }
