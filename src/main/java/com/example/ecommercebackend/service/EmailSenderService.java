@@ -1,5 +1,6 @@
 package com.example.ecommercebackend.service;
 
+import com.example.ecommercebackend.config.AppConfig;
 import com.example.ecommercebackend.model.entity.ConfirmationToken;
 import com.example.ecommercebackend.model.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailSenderService {
     private final JavaMailSender javaMailSender;
+    private final AppConfig appConfig;
 
     @Async
     public void sendConfirmationEmail(User user, ConfirmationToken token) {
@@ -20,7 +22,7 @@ public class EmailSenderService {
         simpleMailMessage.setTo(user.getEmail());
         simpleMailMessage.setSubject("Email confirmation");
         simpleMailMessage.setText("Hi, " + user.getUsername() + "\nClick here to confirm your email: "
-        + "http://localhost:8081/api/v1/auth/confirmation?token=" + token.getToken());
+        + appConfig.getUrl() + "/api/v1/auth/confirmation?token=" + token.getToken());
 
         javaMailSender.send(simpleMailMessage);
 

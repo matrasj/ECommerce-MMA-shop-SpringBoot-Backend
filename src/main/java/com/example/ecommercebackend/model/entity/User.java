@@ -20,7 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "user")
+@Table(name = "ecommerce_ user")
 public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)

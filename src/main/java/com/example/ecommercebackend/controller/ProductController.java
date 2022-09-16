@@ -20,11 +20,11 @@ import static org.springframework.http.HttpStatus.OK;
 public class ProductController {
     private final ProductService productService;
 
-    @PostMapping
-    public ResponseEntity<String> addProducts(@RequestBody List<ProductPayloadRequest> products) {
-        return ResponseEntity.status(CREATED)
-                .body(productService.addProductsList(products));
-    }
+//    @PostMapping
+//    public ResponseEntity<String> addProducts(@RequestBody List<ProductPayloadRequest> products) {
+//        return ResponseEntity.status(CREATED)
+//                .body(productService.addProductsList(products));
+//    }
 
     @GetMapping("/brands")
     public ResponseEntity<List<String>> getProductBrands() {
