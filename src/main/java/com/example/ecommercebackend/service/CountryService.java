@@ -25,9 +25,11 @@ public class CountryService {
     }
 
     public String addCountryToShippingCountries(CountryPayloadRequest countryPayloadRequest) {
-        countryRepository.save(Country.builder()
+        Country country = Country.builder()
                 .code(countryPayloadRequest.getCode())
-                .name(countryPayloadRequest.getName()).build());
+                .name(countryPayloadRequest.getName()).build();
+
+        countryRepository.save(country);
         
         return SUCCESSFULLY_COUNTRY_ADDING;
     }
