@@ -14,7 +14,7 @@ import com.example.ecommercebackend.model.payload.registration.RegistrationPaylo
 import com.example.ecommercebackend.model.payload.user.UserPayloadResponse;
 import com.example.ecommercebackend.repository.ConfirmationTokenRepository;
 import com.example.ecommercebackend.repository.UserRepository;
-import com.example.ecommercebackend.security.JwtProvider;
+
 import com.example.ecommercebackend.validator.EmailValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -45,8 +45,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final EmailValidator emailValidator;
-    private final JwtProvider jwtProvider;
-    private final RefreshTokenService refreshTokenService;
+
     private final AuthenticationManager authenticationManager;
 
 
@@ -88,30 +87,18 @@ public class AuthService {
     }
 
 
-    public LoginResponse login(LoginRequest loginRequest) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-        String token = jwtProvider.generateToken(authenticate);
-        return LoginResponse.builder()
-                .authenticationToken(token)
-                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
-                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-                .username(loginRequest.getUsername())
-                .build();
-    }
-
-    public LoginResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
-        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
-        User currentUser = getCurrentUser();
-        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
-        return LoginResponse.builder()
-                .authenticationToken(token)
-                .refreshToken(refreshTokenRequest.getRefreshToken())
-                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-                .username(refreshTokenRequest.getUsername())
-                .build();
-    }
+//    public LoginResponse login(LoginRequest loginRequest) {
+//        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+//                loginRequest.getPassword()));
+//        SecurityContextHolder.getContext().setAuthentication(authenticate);
+//        String token = jwtProvider.generateToken(authenticate);
+//        return LoginResponse.builder()
+//                .authenticationToken(token)
+//                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+//                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+//                .username(loginRequest.getUsername())
+//                .build();
+//    }
 
     public boolean isLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

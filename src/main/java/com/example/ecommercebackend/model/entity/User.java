@@ -11,8 +11,10 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -57,4 +59,25 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = ALL)
     private Set<ConfirmationToken> tokens = new HashSet<>();
+
+    @ManyToMany(cascade = {
+            MERGE, PERSIST
+    }, fetch = EAGER)
+    @JoinTable(name = "user_role",
+        joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "role_id", referencedColumnName = "id")
+        }
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    public Set<Authority> getAuthorities() {
+        return roles
+                .stream()
+                .map(Role::getAuthorities)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
+    }
 }
