@@ -1,17 +1,10 @@
 # ECommerce-MMA-shop-SpringBoot-Backend
 
-Spring Boot backend for e-commerce shop with stripe integration
+Main goal of ECommerce-MMA-shop was to create full-stack ecommerce. This repo contains backend side written in Java. For authentication I implemented role based JWT authentication. Data are being stored in MySQL database. For sending email I used MAILDEV hosted on docker container.
+Moreover for payments I used Stripe API payments. Screenshots of frontned side are available under this link https://github.com/pozerinhooo/ECommerce-MMA-shop-Angular-FrontEnd
 
-Technologies I used:
-- JWT auth
-- Hibernate
-- Spring Data JPA
-- Pagination
-- MySQL (hosted on docker)
-- Spring Security
-- Email account confirmation (using fake mail server MAILDEV: https://github.com/maildev/maildev)
-- Stripe elements
+# IMPORTANT NOTE
+All images, prudct descripitons, prices etc. are taken form real polish ecommerce store MMA Maniak: https://mmaniak.pl/ 
+Goal of project was educational to learn Agnular, I don't use this data in any way.
 
-#######################################
-Screenshots are available here --> https://github.com/pozerinhooo/ECommerce-MMA-shop-Angular-FrontEnd
-#######################################
+# Sql logical view ( drawSQL )
