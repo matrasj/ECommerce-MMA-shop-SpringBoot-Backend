@@ -4,8 +4,10 @@ import com.example.ecommercebackend.exception.ConfirmationTokenAlreadyConfirmedE
 import com.example.ecommercebackend.exception.ConfirmationTokenAlreadyExpiredException;
 import com.example.ecommercebackend.exception.ConfirmationTokenNotFoundExceptions;
 import com.example.ecommercebackend.exception.EmailNotValidException;
+import com.example.ecommercebackend.jwt.JwtTokenProvider;
 import com.example.ecommercebackend.model.entity.ConfirmationToken;
 import com.example.ecommercebackend.model.entity.User;
+import com.example.ecommercebackend.model.entity.UserPrincipal;
 import com.example.ecommercebackend.model.payload.login.LoginRequest;
 import com.example.ecommercebackend.model.payload.login.LoginResponse;
 import com.example.ecommercebackend.model.payload.refreshtoken.RefreshTokenRequest;
@@ -47,6 +49,7 @@ public class AuthService {
     private final EmailValidator emailValidator;
 
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
 
     @Transactional
@@ -78,40 +81,37 @@ public class AuthService {
         return SUCCESSFULLY_CONFIRMED_TOKEN;
     }
 
+    public LoginResponse login(LoginRequest loginRequest) {
+        Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                loginRequest.getPassword()));
+
+
+        String token = jwtTokenProvider.generateJwtToken(authenticate);
+        return LoginResponse.builder()
+                .authenticationToken(token)
+                .expiresAt(Instant.now().plusMillis(jwtTokenProvider.getJwtExpirationInMillis()))
+                .username(loginRequest.getUsername())
+                .build();
+    }
+
     @Transactional(readOnly = true)
     public User getCurrentUser() {
-        Jwt principal = (Jwt) SecurityContextHolder.
+
+        Object principal = SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
-        return userRepository.findByUsername(principal.getSubject())
-                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getSubject()));
+
+        if (principal instanceof String) {
+            return null;
+        } else {
+            return userRepository.findByUsername(((UserPrincipal)principal).getUsername())
+                    .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s has not been found", ((UserPrincipal)(principal)).getUsername())));
+        }
+
     }
-
-
-//    public LoginResponse login(LoginRequest loginRequest) {
-//        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-//                loginRequest.getPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authenticate);
-//        String token = jwtProvider.generateToken(authenticate);
-//        return LoginResponse.builder()
-//                .authenticationToken(token)
-//                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
-//                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-//                .username(loginRequest.getUsername())
-//                .build();
-//    }
 
     public boolean isLoggedIn() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
-    }
-
-    public UserPayloadResponse getCurrentUserData() {
-        User currentUser = getCurrentUser();
-        return UserPayloadResponse.builder()
-                .id(currentUser.getId())
-                .firstName(currentUser.getFirstName())
-                .lastName(currentUser.getLastName())
-                .email(currentUser.getEmail())
-                .build();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return principal == null;
     }
 }

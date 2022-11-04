@@ -1,11 +1,8 @@
 package com.example.ecommercebackend.service;
 
-import com.example.ecommercebackend.config.AppConfig;
 import com.example.ecommercebackend.model.entity.ConfirmationToken;
 import com.example.ecommercebackend.model.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 

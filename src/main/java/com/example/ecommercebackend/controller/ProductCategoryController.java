@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/api/v1/product-categories")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
     @GetMapping

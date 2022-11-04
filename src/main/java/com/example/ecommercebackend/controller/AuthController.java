@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 public class AuthController {
     private final AuthService authService;
 
@@ -32,11 +32,11 @@ public class AuthController {
                 .body(authService.confirmAccountByToken(token));
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-//        return ResponseEntity.status(ACCEPTED)
-//                .body(authService.login(loginRequest));
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.status(ACCEPTED)
+                .body(authService.login(loginRequest));
+    }
 
 
 

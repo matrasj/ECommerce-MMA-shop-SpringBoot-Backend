@@ -86,4 +86,8 @@ public class JwtTokenProvider {
 
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
+
+    public long getJwtExpirationInMillis() {
+        return validityInMs;
+    }
 }

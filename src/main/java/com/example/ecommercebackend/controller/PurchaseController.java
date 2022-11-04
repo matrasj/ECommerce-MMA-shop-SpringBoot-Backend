@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("/api/v1/purchase")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class PurchaseController {
     private final PurchaseService purchaseService;
     @PostMapping

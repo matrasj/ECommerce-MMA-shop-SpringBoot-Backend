@@ -1,5 +1,6 @@
 package com.example.ecommercebackend.controller;
 
+import com.example.ecommercebackend.model.entity.User;
 import com.example.ecommercebackend.model.payload.user.UserPayloadResponse;
 import com.example.ecommercebackend.service.AuthService;
 import com.example.ecommercebackend.service.UserService;
@@ -13,12 +14,12 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class UserController {
     private final AuthService authService;
     @GetMapping("/current")
-    public ResponseEntity<UserPayloadResponse> getUserData() {
+    public ResponseEntity<User> getUserData() {
         return ResponseEntity.status(OK)
-                .body(authService.getCurrentUserData());
+                .body(authService.getCurrentUser());
     }
 }
