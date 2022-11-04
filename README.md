@@ -8,5 +8,5 @@ All images, prudct descripitons, prices etc. are taken form real polish ecommerc
 Goal of project was educational to learn Agnular, I don't use this data in purpose of selling real products.
 
 # Sql logical view ( drawSQL )
-![image](https://user-images.githubusercontent.com/95829811/200079643-16c841e7-8a3b-401c-bd7c-c407a8e15ea5.png)
+![image](https://user-images.githubusercontent.com/95829811/200079858-2dcc95e5-9266-48ea-acea-15033d3b4f7b.png)
 
