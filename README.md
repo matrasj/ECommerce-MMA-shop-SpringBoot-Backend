@@ -5,6 +5,6 @@ Moreover for payments I used Stripe API payments. Screenshots of frontned side a
 
 # IMPORTANT NOTE
 All images, prudct descripitons, prices etc. are taken form real polish ecommerce store MMA Maniak: https://mmaniak.pl/ 
-Goal of project was educational to learn Agnular, I don't use this data in any way.
+Goal of project was educational to learn Agnular, I don't use this data in purpose of selling real products.
 
 # Sql logical view ( drawSQL )
