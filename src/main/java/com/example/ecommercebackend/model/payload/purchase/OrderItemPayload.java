@@ -23,11 +23,8 @@ public class OrderItemPayload {
     private String size;
     @NotBlank(message = "Item's brand name is required")
     private String brandName;
-    @NotBlank(message = "Item's price is required")
     private BigDecimal price;
     private String imagePath;
-    @NotBlank(message = "Items quantity is required")
     private int amount;
-    @NotBlank(message = "Product id is required")
     private Long productId;
 }

@@ -15,6 +15,5 @@ import javax.validation.constraints.NotBlank;
 public class ReviewPayloadRequest {
     @NotBlank(message = "Content is required")
     private String content;
-    @NotBlank(message = "Review must contains particular review id")
     private Long productId;
 }
