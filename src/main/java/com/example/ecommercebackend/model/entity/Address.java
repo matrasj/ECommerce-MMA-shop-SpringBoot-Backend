@@ -1,11 +1,14 @@
 package com.example.ecommercebackend.model.entity;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -23,6 +26,7 @@ public class Address {
     private Long id;
 
     @Column(name = "address")
+    @NotNull(message = "Address can not be null")
     private String address;
 
     @Column(name = "city")

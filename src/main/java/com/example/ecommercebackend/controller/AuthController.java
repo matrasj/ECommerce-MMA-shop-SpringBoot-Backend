@@ -2,13 +2,15 @@ package com.example.ecommercebackend.controller;
 
 import com.example.ecommercebackend.model.payload.login.LoginRequest;
 import com.example.ecommercebackend.model.payload.login.LoginResponse;
-import com.example.ecommercebackend.model.payload.refreshtoken.RefreshTokenRequest;
+
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadRequest;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadResponse;
 import com.example.ecommercebackend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -21,7 +23,7 @@ public class AuthController {
 
 
     @PostMapping("/registration")
-    public ResponseEntity<RegistrationPayloadResponse> registerUser(@RequestBody RegistrationPayloadRequest request) {
+    public ResponseEntity<RegistrationPayloadResponse> registerUser(@RequestBody @Valid RegistrationPayloadRequest request) {
         return ResponseEntity.status(CREATED)
                 .body(authService.createUser(request));
     }
@@ -33,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
         return ResponseEntity.status(ACCEPTED)
                 .body(authService.login(loginRequest));
     }

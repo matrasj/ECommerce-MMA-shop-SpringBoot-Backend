@@ -5,8 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Parent;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -33,6 +36,7 @@ public class User {
     private String username;
 
     @Column(name = "password")
+
     private String password;
 
     @Column(name = "email")

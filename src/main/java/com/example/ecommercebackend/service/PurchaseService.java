@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -61,32 +62,42 @@ public class PurchaseService {
 
 
     @Transactional
-    public PurchasePayloadResponse makePurchase(PurchasePayloadRequest purchasePayloadRequest) {
+    public PurchasePayloadResponse makePurchase( PurchasePayloadRequest purchasePayloadRequest) {
         CustomerPayload customerPayload = purchasePayloadRequest.getCustomerPayload();
         AddressPayload addressPayload = purchasePayloadRequest.getAddressPayload();
         List<OrderItemPayload> orderItemPayloadList = purchasePayloadRequest.getOrderItemPayloadList();
         OrderPayload orderPayload = purchasePayloadRequest.getOrderPayload();
 
+        //Building order
+        Order order = buildOrderPayload(orderPayload);
+
         //Building customer
         Optional<Customer> optionalCustomer = customerRepository.findByEmail(customerPayload.getEmail());
         Customer customer = optionalCustomer.orElseGet(() -> buildCustomerByPayload(customerPayload));
 
+
         //Building address
         Address address = buildAddressByPayload(addressPayload);
 
+
         //Building order items
         Set<OrderItem> orderItems = buildOrderItemsByPayload(orderItemPayloadList);
-
-        //Building order
-        Order order = buildOrderPayload(orderPayload);
-
-        orderItems.forEach((orderItem -> orderItem.setOrder(order)));
 
         order.setOrderItems(orderItems);
         order.setCustomer(customer);
         order.setAddress(address);
 
+
+        orderItems.forEach((orderItem -> orderItem.setOrder(order)));
         orderRepository.save(order);
+
+
+
+
+//        orderRepository.save(order);
+//        customerRepository.save(customer);
+//        addressRepository.save(address);
+//        System.out.println(order);
         return new PurchasePayloadResponse(order.getOrderTrackingNumber());
 
     }

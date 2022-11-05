@@ -10,7 +10,7 @@ import com.example.ecommercebackend.model.entity.User;
 import com.example.ecommercebackend.model.entity.UserPrincipal;
 import com.example.ecommercebackend.model.payload.login.LoginRequest;
 import com.example.ecommercebackend.model.payload.login.LoginResponse;
-import com.example.ecommercebackend.model.payload.refreshtoken.RefreshTokenRequest;
+
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadRequest;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadResponse;
 import com.example.ecommercebackend.model.payload.user.UserPayloadResponse;

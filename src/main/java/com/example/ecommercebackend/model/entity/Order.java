@@ -16,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -28,7 +28,6 @@ public class Order {
 
     @Column(name = "created_at")
     @CreationTimestamp
-
     private Date createdAt;
 
     @Column(name = "total_quantity")

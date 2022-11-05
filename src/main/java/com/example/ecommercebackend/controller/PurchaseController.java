@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -19,7 +21,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class PurchaseController {
     private final PurchaseService purchaseService;
     @PostMapping
-    public ResponseEntity<PurchasePayloadResponse> makePurchase(@RequestBody PurchasePayloadRequest purchasePayloadRequest) {
+    public ResponseEntity<PurchasePayloadResponse> makePurchase(@RequestBody @Valid PurchasePayloadRequest purchasePayloadRequest) {
         return ResponseEntity.status(CREATED)
                 .body(purchaseService.makePurchase(purchasePayloadRequest));
     }
