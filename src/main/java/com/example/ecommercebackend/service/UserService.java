@@ -2,11 +2,11 @@ package com.example.ecommercebackend.service;
 
 import com.example.ecommercebackend.exception.EmailAlreadyExistsException;
 import com.example.ecommercebackend.exception.UsernameAlreadyExistsException;
+import com.example.ecommercebackend.factories.ConfirmationTokenFactory;
 import com.example.ecommercebackend.model.entity.ConfirmationToken;
 import com.example.ecommercebackend.model.entity.User;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadRequest;
 import com.example.ecommercebackend.model.payload.registration.RegistrationPayloadResponse;
-import com.example.ecommercebackend.model.payload.user.UserPayloadResponse;
 import com.example.ecommercebackend.repository.ConfirmationTokenRepository;
 import com.example.ecommercebackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.HashSet;
 
 @Service

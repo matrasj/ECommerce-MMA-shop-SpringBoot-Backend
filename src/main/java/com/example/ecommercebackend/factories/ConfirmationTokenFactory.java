@@ -1,4 +1,4 @@
-package com.example.ecommercebackend.service;
+package com.example.ecommercebackend.factories;
 
 import com.example.ecommercebackend.model.entity.ConfirmationToken;
 
