@@ -21,6 +21,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -78,6 +80,7 @@ class AuthControllerTest {
         String loginRequestAsString = objectMapper.writeValueAsString(loginRequest);
         given(authenticationManager.authenticate(any()))
                 .willReturn(new UsernamePasswordAuthenticationToken(userPrincipal, userPrincipal.getPassword()));
+
 
         mockMvc.perform(
                 post("/api/v1/auth/login")
